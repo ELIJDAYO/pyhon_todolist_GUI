@@ -5,6 +5,13 @@ mage
 fighter
 gold
 fighters
-2 more
+1 more
 Mario
 Help
+String
+String
+killl
+Manage food store
+sheeesh
+mage
+sorcery
