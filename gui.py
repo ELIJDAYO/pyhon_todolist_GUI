@@ -1,7 +1,11 @@
 import PySimpleGUI as sg
-
+import os
 import functions as fun
 import time
+
+if not os.path.exists("todos.txt"):
+    with open("todos.txt", "w") as file:
+        pass
 
 sg.theme("DarkPurple4")
 clock = sg.Text('', key="clock")
@@ -9,7 +13,10 @@ label = sg.Text("Please type in your task")
 input_box = sg.InputText(tooltip="Enter todo",
                          key="todo", )
 
-add_button = sg.Button("Add")
+add_button = sg.Button(size=2, image_source="add.png",
+                       mouseover_colors="LightBlue2",
+                       tooltip="Add Todo",
+                       key="Add")
 list_box = sg.Listbox(values=fun.get_todos(),
                       key="todos",
                       enable_events=True,
@@ -37,9 +44,10 @@ while True:
             try:
                 todos = fun.get_todos()
                 new_todo = values['todo'] + "\n"
-                todos.append(new_todo)
-                fun.write_todos(todos)
-                window['todos'].update(values=todos)
+                if new_todo != "\n":
+                    todos.append(new_todo)
+                    fun.write_todos(todos)
+                    window['todos'].update(values=todos)
             except IndexError:
                 sg.popup("Print select an item", font=("Helvetica", 20))
         case "Edit":
